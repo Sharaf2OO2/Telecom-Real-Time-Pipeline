@@ -1,0 +1,29 @@
+global:
+  scrape_interval: 15s  # How often to scrape metrics
+  evaluation_interval: 15s
+
+scrape_configs:
+  # Scrape Prometheus itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['prometheus:9090']
+
+  # Scrape Redpanda broker metrics
+  - job_name: 'redpanda'
+    static_configs:
+      - targets: ['redpanda:9644']
+
+  # Scrape Flink JobManager metrics
+  - job_name: 'flink-jobmanager'
+    static_configs:
+      - targets: ['jobmanager:8081']
+
+  # Scrape Airflow metrics (if exposing Prometheus endpoint)
+  - job_name: 'airflow'
+    static_configs:
+      - targets: ['airflow-scheduler:8793']
+
+  # Debezium/Kafka Connect
+  - job_name: 'debezium'
+    static_configs:
+      - targets: ['connect:8083']
