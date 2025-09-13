@@ -407,7 +407,129 @@ services:
       airflow-init:
         condition: service_completed_successfully
 
+  # Debezium (Kafka Connect) - for CDC
+  connect:
+    image: debezium/connect:2.4
+    container_name: connect
+    ports:
+      - "8083:8083"
+    environment:
+      - BOOTSTRAP_SERVERS=redpanda:9092
+      - GROUP_ID=1
+      - CONFIG_STORAGE_TOPIC=connect-configs
+      - OFFSET_STORAGE_TOPIC=connect-offsets
+      - STATUS_STORAGE_TOPIC=connect-status
+      - KEY_CONVERTER=org.apache.kafka.connect.json.JsonConverter
+      - VALUE_CONVERTER=org.apache.kafka.connect.json.JsonConverter
+      - KEY_CONVERTER_SCHEMAS_ENABLE=false
+      - VALUE_CONVERTER_SCHEMAS_ENABLE=false
+      - PLUGIN_PATH=/kafka/connect
+    volumes:
+      - connect-plugins:/kafka/connect
+    depends_on:
+      - redpanda
+      - telecom-postgres
+    restart: always
+
+  # Schema Registry (Apicurio - in-memory)
+  schema-registry:
+    image: apicurio/apicurio-registry-mem:2.1.1.Final
+    container_name: schema-registry
+    ports:
+      - "8084:8080"
+    environment:
+      - QUARKUS_HTTP_HOST=0.0.0.0
+    restart: always
+
+  # MinIO - S3-compatible object storage for Iceberg (hot/warm/cold buckets)
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ROOT_USER=minio
+      - MINIO_ROOT_PASSWORD=minio123
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+    restart: always
+
+  # Nessie - Versioned catalog for Iceberg
+  nessie:
+    image: projectnessie/nessie:0.30.0
+    container_name: nessie
+    ports:
+      - "19121:19121"
+    environment:
+      - JAVA_OPTS=-Xmx512m
+    volumes:
+      - nessie_data:/var/lib/nessie
+    restart: always
+
+  # Spark (lightweight) - useful for maintenance tasks: MERGE, compaction, expire snapshots
+  spark:
+    image: bitnami/spark:3
+    container_name: spark
+    environment:
+      - SPARK_MODE=master
+    ports:
+      - "7077:7077"
+    volumes:
+      - spark_data:/bitnami/spark
+    restart: always
+
+  # Dremio - query engine for Iceberg
+  dremio:
+    platform: linux/x86_64
+    image: dremio/dremio-oss:latest
+    container_name: dremio
+    ports:
+      - 9047:9047
+      - 31010:31010
+      - 32010:32010
+    environment:
+      - DREMIO_JAVA_SERVER_EXTRA_OPTS=-Dpaths.dist=file:///opt/dremio/data/dist
+    volumes:
+      - dremio_data:/opt/dremio/data
+    restart: always
+
+  # Prometheus + Grafana for monitoring
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    restart: always
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+    restart: always
+
+# End of services
+
 volumes:
   airflow-postgres-db-volume:
   telecom-postgres-db-volume:
   redpanda_data:
+  connect-plugins:
+  minio_data:
+  nessie_data:
+  spark_data:
+  dremio_data:
+  prometheus_data:
+  grafana_data:
