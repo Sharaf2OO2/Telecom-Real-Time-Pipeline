@@ -1,0 +1,31 @@
+{
+  "name": "telecom-postgres-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "plugin.name": "pgoutput",
+    "tasks.max": "1",
+
+    "database.hostname": "telecom-postgres",
+    "database.port": "5432",
+    "database.user": "admin",
+    "database.password": "admin",
+    "database.dbname": "telecom_db",
+    "database.server.name": "telecom", 
+
+    "table.include.list": "public.subscribers,public.billing_events,public.cell_towers",
+
+    "slot.name": "debezium_slot",
+    "publication.name": "debezium_pub",
+    "database.history.kafka.bootstrap.servers": "redpanda:9092",
+    "database.history.kafka.topic": "schema-changes.telecom",
+
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter.schemas.enable": "false",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "false",
+
+    "topic.prefix": "telecom",
+    "heartbeat.interval.ms": "10000",
+    "tombstones.on.delete": "false"
+  }
+}
