@@ -115,6 +115,8 @@ services:
       - telecom-postgres-db-volume:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    command: >
+      postgres -c wal_level=logical -c max_wal_senders=5 -c max_replication_slots=5
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "admin"]
       interval: 10s
