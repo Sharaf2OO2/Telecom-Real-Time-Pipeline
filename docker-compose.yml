@@ -460,10 +460,10 @@ services:
 
   # Nessie - Versioned catalog for Iceberg
   nessie:
-    image: projectnessie/nessie:0.30.0
+    image: projectnessie/nessie:0.76.0
     container_name: nessie
     ports:
-      - "19121:19121"
+      - "19120:19120"
     environment:
       - JAVA_OPTS=-Xmx512m
     volumes:
