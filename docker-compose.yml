@@ -173,22 +173,29 @@ services:
 
   # Flink Job Manager
   jobmanager:
-    image: flink:2.0.0-scala_2.12
+  #  build: ./flink
+    image: my-flink:2.0.0
     hostname: jobmanager
     ports:
       - "8081:8081"
     command: jobmanager
     environment:
       - JOB_MANAGER_RPC_ADDRESS=jobmanager
+    volumes:
+      - ./flink/conf/flink-conf.yml:/opt/flink/conf/config.yaml
+      - ./flink/jobs:/opt/flink/jobs 
 
   # Flink Task Manager
   taskmanager:
-    image: flink:2.0.0-scala_2.12
+  #  build: ./flink
+    image: my-flink:2.0.0
     depends_on:
       - jobmanager
     command: taskmanager
     environment:
       - JOB_MANAGER_RPC_ADDRESS=jobmanager
+    volumes:
+      - ./flink/conf/flink-conf.yml:/opt/flink/conf/config.yaml
     deploy:
       replicas: 2
 
