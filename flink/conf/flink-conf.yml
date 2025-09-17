@@ -1,20 +1,6 @@
 blob:
   server:
     port: '6124'
-taskmanager:
-  memory:
-    process:
-      size: 1024m
-  numberOfTaskSlots: 1
-jobmanager:
-  rpc:
-    address: jobmanager
-  memory:
-    process:
-      size: 1024m
-query:
-  server:
-    port: '6125'
 s3:
   access-key: minio
   secret-key: minio123
@@ -22,11 +8,23 @@ s3:
   path:
     style:
       access: true
-pipeline:
-  jars: /opt/flink/plugins/iceberg/flink-sql-connector-kafka-1.17.1.jar,/opt/flink/plugins/iceberg/flink-s3-fs-presto-1.17.1.jar,/opt/flink/plugins/iceberg/iceberg-flink-runtime-1.17-1.5.2.jar
+taskmanager:
+  memory:
+    process:
+      size: 1024m
+  numberOfTaskSlots: 1
 parallelism:
   default: 1
+jobmanager:
+  rpc:
+    address: jobmanager
+  memory:
+    process:
+      size: 1024m
 env:
   java:
     opts:
       all: --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED
+query:
+  server:
+    port: '6125'
