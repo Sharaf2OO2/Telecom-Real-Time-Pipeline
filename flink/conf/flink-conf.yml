@@ -12,7 +12,7 @@ taskmanager:
   memory:
     process:
       size: 1024m
-  numberOfTaskSlots: 1
+  numberOfTaskSlots: 10
 parallelism:
   default: 1
 jobmanager:

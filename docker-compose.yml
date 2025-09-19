@@ -174,7 +174,7 @@ services:
   # Flink Job Manager
   jobmanager:
     # build: ./flink  # Uncomment when running the service for the first time or made changes to the Dockerfile
-    image: my-flink:2.1.0
+    image: my-flink:2.1.1
     hostname: jobmanager
     ports:
       - "8081:8081"
@@ -188,7 +188,7 @@ services:
   # Flink Task Manager
   taskmanager:
     # build: ./flink  # Uncomment when running the service for the first time or made changes to the Dockerfile
-    image: my-flink:2.1.0
+    image: my-flink:2.1.1
     depends_on:
       - jobmanager
     command: taskmanager
