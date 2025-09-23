@@ -73,8 +73,8 @@ def read_from_kafka(env):
     clickhouse_password = os.getenv('CLICKHOUSE_PASSWORD', conf["CLICKHOUSE_PASSWORD"])
     clickhouse_host = os.getenv('CLICKHOUSE_HOST', conf["CLICKHOUSE_HOST"])
     clickhouse_port = os.getenv('CLICKHOUSE_PORT', '8443')
-    clickhouse_database = os.getenv('CLICKHOUSE_DATABASE', 'Telecom')
-    clickhouse_table = os.getenv('CLICKHOUSE_TABLE', 'call_events')
+    clickhouse_database = os.getenv('CLICKHOUSE_DATABASE', 'Telecom_Hot')
+    clickhouse_table = os.getenv('CLICKHOUSE_TABLE', 'call_events_bronze')
     
     # Deserialization schema for reading from Kafka
     deserialization_schema = (
