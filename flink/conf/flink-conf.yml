@@ -1,0 +1,30 @@
+blob:
+  server:
+    port: '6124'
+s3:
+  access-key: minio
+  secret-key: minio123
+  endpoint: http://minio:9000
+  path:
+    style:
+      access: true
+taskmanager:
+  memory:
+    process:
+      size: 1024m
+  numberOfTaskSlots: 10
+parallelism:
+  default: 1
+jobmanager:
+  rpc:
+    address: jobmanager
+  memory:
+    process:
+      size: 1024m
+env:
+  java:
+    opts:
+      all: --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED
+query:
+  server:
+    port: '6125'

@@ -1,3 +1,4 @@
 config
 logs
 Scripts/__pycache__
+flink/jobs/clickhouse_config.json
