@@ -419,7 +419,7 @@ services:
   # Debezium (Kafka Connect) - for CDC
   connect:
     image: debezium/connect:2.4
-    container_name: connect
+    container_name: debezium
     ports:
       - "8083:8083"
     environment:
