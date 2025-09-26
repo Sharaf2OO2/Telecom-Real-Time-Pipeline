@@ -183,6 +183,7 @@ services:
       - JOB_MANAGER_RPC_ADDRESS=jobmanager
     volumes:
       - ./flink/conf/flink-conf.yml:/opt/flink/conf/config.yaml
+      - ./flink/conf/clickhouse_config.json:/opt/flink/conf/clickhouse_config.json
       - ./flink/jobs:/opt/flink/jobs 
 
   # Flink Task Manager
@@ -196,6 +197,7 @@ services:
       - JOB_MANAGER_RPC_ADDRESS=jobmanager
     volumes:
       - ./flink/conf/flink-conf.yml:/opt/flink/conf/config.yaml
+      - ./flink/conf/clickhouse_config.json:/opt/flink/conf/clickhouse_config.json
     deploy:
       replicas: 2
 

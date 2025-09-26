@@ -1,5 +1,5 @@
 config
 logs
 Scripts/__pycache__
-flink/jobs/clickhouse_config.json
 dags/__pycache__
+flink/conf/clickhouse_config.json

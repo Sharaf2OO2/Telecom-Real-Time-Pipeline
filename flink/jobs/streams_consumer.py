@@ -66,7 +66,7 @@ class ClickHouseSink(ProcessFunction):
 
 def read_from_kafka(env):
     # Get ClickHouse credentials from environment variables
-    with open("clickhouse_config.json") as f:
+    with open("/opt/flink/conf/clickhouse_config.json") as f:
         conf = json.load(f)
 
     clickhouse_username = os.getenv('CLICKHOUSE_USERNAME', conf["CLICKHOUSE_USERNAME"])
