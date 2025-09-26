@@ -59,7 +59,7 @@ class ClickHouseBillSink(ProcessFunction):
             print(f"Error sending bill record to ClickHouse: {str(e)}")
 
 def read_from_kafka(env):
-    with open("clickhouse_config.json") as f:
+    with open("/opt/flink/conf/clickhouse_config.json") as f:
         conf = json.load(f)
 
     clickhouse_username = os.getenv('CLICKHOUSE_USERNAME', conf["CLICKHOUSE_USERNAME"])
