@@ -1,13 +1,6 @@
 blob:
   server:
     port: '6124'
-s3:
-  access-key: minio
-  secret-key: minio123
-  endpoint: http://minio:9000
-  path:
-    style:
-      access: true
 taskmanager:
   memory:
     process:
