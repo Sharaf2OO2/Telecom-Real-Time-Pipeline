@@ -106,7 +106,7 @@ def read_from_kafka(env):
 
     stream.process(clickhouse_sink).name("ClickHouse Tower Sink")
 
-    env.execute("Kafka Towers Consumer and ClickHouse Producer Job")
+    env.execute("Towers CDC")
 
 if __name__ == "__main__":
     env = StreamExecutionEnvironment.get_execution_environment()
