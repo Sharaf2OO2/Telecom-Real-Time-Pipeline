@@ -1,5 +1,5 @@
 # Telecom Real-Time Pipeline
-<img width="2711" height="945" alt="Telecom Real-Time Pipeline" src="https://github.com/user-attachments/assets/2e1e2fe1-0cad-4f85-b09a-49fa87caa136" />
+<img width="2711" height="945" alt="Telecom Real-Time Pipeline" src="https://github.com/user-attachments/assets/b5a603b3-b106-4600-a280-acc54a657d29" />
 
 ## Project Overview
 
@@ -85,6 +85,9 @@ This project implements a modern data pipeline architecture with the following k
 
 ### Batch Processing (Airflow)
 
+<img width="989" height="284" alt="image" src="https://github.com/user-attachments/assets/8c45d1da-08e8-428a-a90c-cc15c481567f" />
+
+
 The `warm_dag` orchestrates daily data transformations through a medallion architecture:
 
 - **Bronze Layer**: Raw data ingestion from hot storage
@@ -92,6 +95,7 @@ The `warm_dag` orchestrates daily data transformations through a medallion archi
 - **Gold Layer**: Aggregated analytics with hourly metrics
 
 ### Real-time Processing (CDC + Flink)
+<img width="1914" height="649" alt="Screenshot 2025-09-27 031434" src="https://github.com/user-attachments/assets/2db95a17-4f70-422e-95ff-081fc9bf00bb" />
 
 Change Data Capture monitors PostgreSQL tables and streams changes to Kafka topics:
 
