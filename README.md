@@ -103,6 +103,10 @@ Change Data Capture monitors PostgreSQL tables and streams changes to Kafka topi
 - `telecom.public.billing_events` - Billing transactions
 - `telecom.public.cell_towers` - Infrastructure updates
 
+### Real-time Dashboards (Grafana)
+<img width="1511" height="714" alt="Screenshot 2025-09-27 031118" src="https://github.com/user-attachments/assets/988f9b75-9b1e-4bdb-bf70-7d2b70e48766" />
+
+
 ## Configuration
 
 ### Database Setup
